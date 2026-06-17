@@ -1,0 +1,32 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: helpdesk-db
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: helpdesk_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: helpdesk-api
+
+    depends_on:
+      - db
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/helpdesk_db
+
+volumes:
+  postgres_data:
