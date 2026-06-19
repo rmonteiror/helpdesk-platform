@@ -54,3 +54,8 @@ def root():
     return {
         "message": "Help Desk Platform API Running"
     }
+@app.get("/healthz")
+def health_check():
+    return {
+        "status": "healthy"
+    }
