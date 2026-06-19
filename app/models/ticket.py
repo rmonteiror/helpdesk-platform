@@ -7,6 +7,8 @@ from sqlalchemy import (
     DateTime
 )
 
+from sqlalchemy.orm import relationship
+
 from datetime import datetime
 
 from app.database.base import Base
@@ -55,4 +57,16 @@ class Ticket(Base):
     created_at = Column(
         DateTime,
         default=datetime.utcnow
+    )
+
+    user = relationship(
+        "User",
+        foreign_keys=[user_id],
+        back_populates="tickets"
+    )
+
+    comments = relationship(
+        "Comment",
+        back_populates="ticket",
+        cascade="all, delete-orphan"
     )

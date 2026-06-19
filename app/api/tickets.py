@@ -20,6 +20,10 @@ from app.schemas.ticket_assignment import (
     TicketAssignment
 )
 
+from app.schemas.ticket_response import (
+    TicketResponse
+)
+
 from app.api.users import get_current_user
 
 from app.core.permissions import (
@@ -29,6 +33,7 @@ from app.core.permissions import (
 from app.services.ticket_service import (
     create_new_ticket,
     list_user_tickets,
+    search_user_tickets,
     find_ticket,
     change_ticket_status,
     assign_ticket_to_agent
@@ -40,7 +45,10 @@ router = APIRouter(
 )
 
 
-@router.post("/")
+@router.post(
+    "/",
+    response_model=TicketResponse
+)
 def create_ticket(
     ticket: TicketCreate,
     current_user=Depends(get_current_user),
@@ -55,11 +63,17 @@ def create_ticket(
     )
 
 
-@router.get("/")
+@router.get(
+    "/",
+    response_model=list[TicketResponse]
+)
 def my_tickets(
     skip: int = 0,
     limit: int = 10,
     status: str | None = None,
+    priority: str | None = None,
+    sort: str | None = None,
+    order: str = "asc",
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -68,11 +82,33 @@ def my_tickets(
         current_user.id,
         skip,
         limit,
-        status
+        status,
+        priority,
+        sort,
+        order
     )
 
 
-@router.get("/{ticket_id}")
+@router.get(
+    "/search",
+    response_model=list[TicketResponse]
+)
+def search_tickets(
+    q: str,
+    current_user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return search_user_tickets(
+        db,
+        current_user.id,
+        q
+    )
+
+
+@router.get(
+    "/{ticket_id}",
+    response_model=TicketResponse
+)
 def get_ticket(
     ticket_id: int,
     current_user=Depends(get_current_user),

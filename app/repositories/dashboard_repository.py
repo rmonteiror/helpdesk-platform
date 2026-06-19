@@ -1,29 +1,65 @@
+from sqlalchemy.orm import Session
+from sqlalchemy import func
+
 from app.models.ticket import Ticket
 
 
-def get_ticket_stats(db):
-    total_tickets = db.query(Ticket).count()
+def get_ticket_statistics(
+    db: Session
+):
+    total = db.query(
+        func.count(Ticket.id)
+    ).scalar()
 
-    open_tickets = db.query(Ticket).filter(
+    open_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
         Ticket.status == "open"
-    ).count()
+    ).scalar()
 
-    in_progress_tickets = db.query(Ticket).filter(
+    in_progress_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
         Ticket.status == "in_progress"
-    ).count()
+    ).scalar()
 
-    resolved_tickets = db.query(Ticket).filter(
+    resolved_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
         Ticket.status == "resolved"
-    ).count()
+    ).scalar()
 
-    closed_tickets = db.query(Ticket).filter(
+    closed_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
         Ticket.status == "closed"
-    ).count()
+    ).scalar()
+
+    high_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
+        Ticket.priority == "high"
+    ).scalar()
+
+    medium_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
+        Ticket.priority == "medium"
+    ).scalar()
+
+    low_count = db.query(
+        func.count(Ticket.id)
+    ).filter(
+        Ticket.priority == "low"
+    ).scalar()
 
     return {
-        "total_tickets": total_tickets,
-        "open": open_tickets,
-        "in_progress": in_progress_tickets,
-        "resolved": resolved_tickets,
-        "closed": closed_tickets
+        "total_tickets": total,
+        "open": open_count,
+        "in_progress": in_progress_count,
+        "resolved": resolved_count,
+        "closed": closed_count,
+        "high": high_count,
+        "medium": medium_count,
+        "low": low_count
     }

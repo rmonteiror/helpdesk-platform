@@ -13,6 +13,10 @@ from app.schemas.comment import (
     CommentCreate
 )
 
+from app.schemas.comment_response import (
+    CommentResponse
+)
+
 from app.services.comment_service import (
     add_comment,
     list_comments
@@ -24,7 +28,10 @@ router = APIRouter(
 )
 
 
-@router.post("/{ticket_id}/comments")
+@router.post(
+    "/{ticket_id}/comments",
+    response_model=CommentResponse
+)
 def create_comment(
     ticket_id: int,
     payload: CommentCreate,
@@ -39,7 +46,10 @@ def create_comment(
     )
 
 
-@router.get("/{ticket_id}/comments")
+@router.get(
+    "/{ticket_id}/comments",
+    response_model=list[CommentResponse]
+)
 def get_comments(
     ticket_id: int,
     current_user=Depends(get_current_user),

@@ -1,4 +1,7 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import (
+    Session,
+    joinedload
+)
 
 from app.models.comment import Comment
 
@@ -26,6 +29,14 @@ def get_comments_by_ticket(
     db: Session,
     ticket_id: int
 ):
-    return db.query(Comment).filter(
-        Comment.ticket_id == ticket_id
-    ).all()
+    return (
+        db.query(Comment)
+        .options(
+            joinedload(Comment.user),
+            joinedload(Comment.ticket)
+        )
+        .filter(
+            Comment.ticket_id == ticket_id
+        )
+        .all()
+    )

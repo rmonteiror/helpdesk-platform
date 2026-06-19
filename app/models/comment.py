@@ -6,6 +6,8 @@ from sqlalchemy import (
     DateTime
 )
 
+from sqlalchemy.orm import relationship
+
 from datetime import datetime
 
 from app.database.base import Base
@@ -38,4 +40,14 @@ class Comment(Base):
     ticket_id = Column(
         Integer,
         ForeignKey("tickets.id")
+    )
+
+    user = relationship(
+        "User",
+        back_populates="comments"
+    )
+
+    ticket = relationship(
+        "Ticket",
+        back_populates="comments"
     )

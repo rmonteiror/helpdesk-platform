@@ -5,9 +5,9 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_dashboard_without_token():
+def test_comments_without_token():
     response = client.get(
-        "/dashboard/stats"
+        "/tickets/1/comments"
     )
 
     assert response.status_code == 403

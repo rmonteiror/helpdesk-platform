@@ -3,7 +3,8 @@ from app.repositories.ticket_repository import (
     get_tickets_by_user,
     get_ticket_by_id,
     update_ticket_status,
-    assign_ticket
+    assign_ticket,
+    search_tickets
 )
 
 
@@ -28,14 +29,32 @@ def list_user_tickets(
     user_id,
     skip=0,
     limit=10,
-    status=None
+    status=None,
+    priority=None,
+    sort=None,
+    order="asc"
 ):
     return get_tickets_by_user(
         db,
         user_id,
         skip,
         limit,
-        status
+        status,
+        priority,
+        sort,
+        order
+    )
+
+
+def search_user_tickets(
+    db,
+    user_id,
+    query_text
+):
+    return search_tickets(
+        db,
+        user_id,
+        query_text
     )
 
 

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import desc, or_
 
 from app.models.ticket import Ticket
 
@@ -29,7 +30,10 @@ def get_tickets_by_user(
     user_id: int,
     skip: int = 0,
     limit: int = 10,
-    status: str = None
+    status: str = None,
+    priority: str = None,
+    sort: str = None,
+    order: str = "asc"
 ):
     query = db.query(Ticket).filter(
         Ticket.user_id == user_id
@@ -40,10 +44,72 @@ def get_tickets_by_user(
             Ticket.status == status
         )
 
+    if priority:
+        query = query.filter(
+            Ticket.priority == priority
+        )
+
+    if sort == "created_at":
+
+        if order == "desc":
+            query = query.order_by(
+                desc(Ticket.created_at)
+            )
+        else:
+            query = query.order_by(
+                Ticket.created_at
+            )
+
+    elif sort == "priority":
+
+        if order == "desc":
+            query = query.order_by(
+                desc(Ticket.priority)
+            )
+        else:
+            query = query.order_by(
+                Ticket.priority
+            )
+
+    elif sort == "status":
+
+        if order == "desc":
+            query = query.order_by(
+                desc(Ticket.status)
+            )
+        else:
+            query = query.order_by(
+                Ticket.status
+            )
+
     return (
         query
         .offset(skip)
         .limit(limit)
+        .all()
+    )
+
+
+def search_tickets(
+    db: Session,
+    user_id: int,
+    query_text: str
+):
+    return (
+        db.query(Ticket)
+        .filter(
+            Ticket.user_id == user_id
+        )
+        .filter(
+            or_(
+                Ticket.title.ilike(
+                    f"%{query_text}%"
+                ),
+                Ticket.description.ilike(
+                    f"%{query_text}%"
+                )
+            )
+        )
         .all()
     )
 
