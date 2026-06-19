@@ -22,6 +22,10 @@ from app.services.comment_service import (
     list_comments
 )
 
+from app.services.ticket_history_service import (
+    add_history
+)
+
 router = APIRouter(
     prefix="/tickets",
     tags=["Comments"]
@@ -38,12 +42,21 @@ def create_comment(
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    return add_comment(
+    comment = add_comment(
         db=db,
         content=payload.content,
         user_id=current_user.id,
         ticket_id=ticket_id
     )
+
+    add_history(
+        db=db,
+        ticket_id=ticket_id,
+        performed_by=current_user.id,
+        action="Comment added"
+    )
+
+    return comment
 
 
 @router.get(

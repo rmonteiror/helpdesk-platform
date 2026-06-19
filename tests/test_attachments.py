@@ -5,9 +5,9 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_dashboard_requires_auth():
+def test_attachments_endpoint_requires_auth():
     response = client.get(
-        "/dashboard/stats"
+        "/attachments/tickets/1"
     )
 
     assert response.status_code in [

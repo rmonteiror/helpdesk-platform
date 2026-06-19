@@ -39,6 +39,10 @@ from app.services.ticket_service import (
     assign_ticket_to_agent
 )
 
+from app.services.ticket_history_service import (
+    add_history
+)
+
 router = APIRouter(
     prefix="/tickets",
     tags=["Tickets"]
@@ -54,13 +58,22 @@ def create_ticket(
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    return create_new_ticket(
+    new_ticket = create_new_ticket(
         db=db,
         title=ticket.title,
         description=ticket.description,
         priority=ticket.priority,
         user_id=current_user.id
     )
+
+    add_history(
+        db=db,
+        ticket_id=new_ticket.id,
+        performed_by=current_user.id,
+        action="Ticket created"
+    )
+
+    return new_ticket
 
 
 @router.get(
@@ -151,6 +164,13 @@ def update_status(
             detail="Ticket not found"
         )
 
+    add_history(
+        db=db,
+        ticket_id=ticket.id,
+        performed_by=current_user.id,
+        action=f"Status changed to {ticket.status}"
+    )
+
     return {
         "id": ticket.id,
         "status": ticket.status
@@ -179,6 +199,13 @@ def assign_ticket(
             status_code=404,
             detail="Ticket not found"
         )
+
+    add_history(
+        db=db,
+        ticket_id=ticket.id,
+        performed_by=current_user.id,
+        action=f"Assigned to agent {ticket.assigned_to}"
+    )
 
     return {
         "id": ticket.id,

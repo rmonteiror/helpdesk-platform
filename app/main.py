@@ -6,6 +6,8 @@ from app.database.base import Base
 from app.models.user import User
 from app.models.ticket import Ticket
 from app.models.comment import Comment
+from app.models.attachment import Attachment
+from app.models.ticket_history import TicketHistory
 
 from app.api.auth import router as auth_router
 from app.api.users import router as users_router
@@ -14,6 +16,13 @@ from app.api.comments import router as comments_router
 
 from app.api.dashboard import (
     router as dashboard_router
+)
+from app.api.attachments import (
+    router as attachments_router
+)
+
+from app.api.ticket_history import (
+    router as history_router
 )
 
 
@@ -31,6 +40,12 @@ app.include_router(tickets_router)
 app.include_router(comments_router)
 app.include_router(
     dashboard_router
+)
+app.include_router(
+    attachments_router
+)
+app.include_router(
+    history_router
 )
 
 
