@@ -1,7 +1,20 @@
 # Help Desk Management API
-A modern Help Desk Management Platform built with FastAPI, PostgreSQL, SQLAlchemy, Docker and GitHub Actions.
+A modern Help Desk Management Platform built with FastAPI, PostgreSQL, SQLAlchemy, Docker, and GitHub Actions.
 
-This project provides a complete ticket management workflow, including authentication, role-based access control, comments, attachments, ticket history, dashboard analytics and automated testing.
+This project provides a complete ticket management workflow, including authentication, role-based access control, comments, attachments, ticket history, SLA tracking, dashboard analytics, and automated testing.
+
+Live Demo
+
+Production deployment available on Render.
+
+Add your Render URL here.
+
+Screenshots
+Swagger UI
+
+Dashboard
+
+Production Deployment
 
 Features
 Authentication & Authorization
@@ -16,6 +29,7 @@ Search Tickets
 Filter Tickets
 Sort Tickets
 Pagination Support
+SLA Tracking
 Comments
 Add Comments to Tickets
 View Ticket Comments
@@ -29,17 +43,17 @@ Dashboard
 Ticket Statistics
 Status Metrics
 Priority Metrics
+SLA Metrics
 Audit Log
 Ticket Creation History
 Status Change History
 Agent Assignment History
 Comment History
-Attachment Upload History
-Attachment Deletion History
+Attachment History
 Infrastructure
 PostgreSQL Database
 SQLAlchemy ORM
-Alembic Database Migrations
+Alembic Migrations
 Docker Support
 GitHub Actions CI/CD
 Automated Testing with Pytest
@@ -59,6 +73,7 @@ DevOps
 Docker
 Docker Compose
 GitHub Actions
+Render
 Testing
 Pytest
 Project Architecture
@@ -70,7 +85,7 @@ app/
 ├── repositories/
 ├── schemas/
 ├── services/
-├── main.py
+└── main.py
 
 tests/
 alembic/
@@ -95,7 +110,6 @@ PostgreSQL + SQLAlchemy ORM.
 Installation
 Clone Repository
 git clone https://github.com/rmonteiror/helpdesk-platform.git
-
 cd helpdesk-platform
 Create Virtual Environment
 python -m venv venv
@@ -119,10 +133,6 @@ Docker
 Build and run the application:
 
 docker-compose up --build
-
-The API will be available at:
-
-http://localhost:8000
 API Documentation
 
 Swagger UI:
@@ -133,21 +143,18 @@ ReDoc:
 
 http://localhost:8000/redoc
 Running Tests
-
-Run all tests:
-
 pytest
 
-Or:
+or
 
 python -m pytest -v
 CI/CD
 
 GitHub Actions automatically:
 
-Installs dependencies
-Runs automated tests
-Validates project integrity
+Install dependencies
+Run automated tests
+Validate project integrity
 Current Functionalities
 JWT Authentication
 User Management
@@ -157,6 +164,7 @@ Status Workflow
 Ticket Search
 Ticket Filtering
 Ticket Sorting
+SLA Tracking
 Comments
 Attachments
 File Upload
@@ -166,15 +174,8 @@ Ticket History
 PostgreSQL Integration
 Docker Integration
 Automated Tests
-Future Improvements
-SLA Management
-Email Notifications
-WebSocket Notifications
-Asset Inventory Integration
-Frontend Dashboard
-Multi-Tenant Support
+Cloud Deployment (Render)
 Author
-
 Ramon Monteiro
 
 GitHub:
