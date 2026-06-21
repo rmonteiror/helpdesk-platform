@@ -9,13 +9,17 @@ def create_ticket(
     title: str,
     description: str,
     priority: str,
-    user_id: int
+    user_id: int,
+    sla_due_date=None,
+    sla_status="on_time"
 ):
     ticket = Ticket(
         title=title,
         description=description,
         priority=priority,
-        user_id=user_id
+        user_id=user_id,
+        sla_due_date=sla_due_date,
+        sla_status=sla_status
     )
 
     db.add(ticket)

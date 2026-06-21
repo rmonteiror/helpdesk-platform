@@ -35,17 +35,20 @@ class Ticket(Base):
 
     status = Column(
         String,
+        nullable=False,
         default="open"
     )
 
     priority = Column(
         String,
+        nullable=False,
         default="medium"
     )
 
     user_id = Column(
         Integer,
-        ForeignKey("users.id")
+        ForeignKey("users.id"),
+        nullable=False
     )
 
     assigned_to = Column(
@@ -56,7 +59,19 @@ class Ticket(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=datetime.utcnow,
+        nullable=False
+    )
+
+    sla_due_date = Column(
+        DateTime,
+        nullable=True
+    )
+
+    sla_status = Column(
+        String,
+        nullable=False,
+        default="on_time"
     )
 
     user = relationship(

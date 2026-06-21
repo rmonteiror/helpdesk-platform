@@ -9,12 +9,12 @@ from app.database.connection import get_db
 
 from app.api.users import get_current_user
 
-from app.core.permissions import (
-    require_agent_or_admin
+from app.schemas.dashboard_response import (
+    DashboardResponse
 )
 
 from app.services.dashboard_service import (
-    get_dashboard_stats
+    get_dashboard
 )
 
 router = APIRouter(
@@ -23,15 +23,14 @@ router = APIRouter(
 )
 
 
-@router.get("/stats")
-def dashboard_stats(
+@router.get(
+    "/",
+    response_model=DashboardResponse
+)
+def dashboard(
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    require_agent_or_admin(
-        current_user
-    )
-
-    return get_dashboard_stats(
+    return get_dashboard(
         db
     )

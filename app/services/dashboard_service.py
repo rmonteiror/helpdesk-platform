@@ -1,11 +1,19 @@
 from app.repositories.dashboard_repository import (
-    get_ticket_statistics
+    get_dashboard_metrics
+)
+
+from app.services.sla_service import (
+    update_sla_status
 )
 
 
-def get_dashboard_stats(
+def get_dashboard(
     db
 ):
-    return get_ticket_statistics(
+    update_sla_status(
+        db
+    )
+
+    return get_dashboard_metrics(
         db
     )

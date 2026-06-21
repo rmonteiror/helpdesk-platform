@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from app.repositories.ticket_repository import (
     create_ticket,
     get_tickets_by_user,
@@ -15,12 +17,25 @@ def create_new_ticket(
     priority,
     user_id
 ):
+    priority = priority.lower()
+
+    if priority == "high":
+        sla_due_date = datetime.utcnow() + timedelta(hours=4)
+
+    elif priority == "medium":
+        sla_due_date = datetime.utcnow() + timedelta(hours=24)
+
+    else:
+        sla_due_date = datetime.utcnow() + timedelta(hours=72)
+
     return create_ticket(
         db=db,
         title=title,
         description=description,
         priority=priority,
-        user_id=user_id
+        user_id=user_id,
+        sla_due_date=sla_due_date,
+        sla_status="on_time"
     )
 
 

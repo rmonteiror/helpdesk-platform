@@ -39,12 +39,14 @@ class User(Base):
 
     role = Column(
         String,
+        nullable=False,
         default="user"
     )
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=datetime.utcnow,
+        nullable=False
     )
 
     tickets = relationship(
