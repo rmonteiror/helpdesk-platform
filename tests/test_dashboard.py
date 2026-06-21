@@ -7,7 +7,7 @@ client = TestClient(app)
 
 def test_dashboard_requires_auth():
     response = client.get(
-        "/dashboard/stats"
+        "/dashboard/"
     )
 
     assert response.status_code in [
