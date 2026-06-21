@@ -1,5 +1,6 @@
 # Help Desk Management API
 A modern Help Desk Management Platform built with FastAPI, PostgreSQL, SQLAlchemy, Docker, and GitHub Actions.
+<<<<<<< HEAD
 
 This project provides a complete ticket management workflow, including authentication, role-based access control, ticket lifecycle management, comments, attachments, SLA tracking, dashboard analytics, and automated testing.
 
@@ -27,6 +28,23 @@ Ticket Management
 
 
 
+=======
+
+This project provides a complete ticket management workflow, including authentication, role-based access control, comments, attachments, ticket history, SLA tracking, dashboard analytics, and automated testing.
+
+Live Demo
+
+Production deployment available on Render.
+
+Add your Render URL here.
+
+Screenshots
+Swagger UI
+
+Dashboard
+
+Production Deployment
+>>>>>>> de85fbdfea872fc06a3614333965b7f2573cef40
 
 Features
 Authentication & Authorization
@@ -172,9 +190,9 @@ CI/CD
 
 GitHub Actions automatically:
 
-Installs dependencies
-Runs automated tests
-Validates project integrity
+Install dependencies
+Run automated tests
+Validate project integrity
 Current Functionalities
 JWT Authentication
 User Management
@@ -185,7 +203,10 @@ Ticket Search
 Ticket Filtering
 Ticket Sorting
 SLA Tracking
+<<<<<<< HEAD
 Dashboard Metrics
+=======
+>>>>>>> de85fbdfea872fc06a3614333965b7f2573cef40
 Comments
 Attachments
 File Upload
@@ -195,12 +216,15 @@ PostgreSQL Integration
 Docker Integration
 Automated Tests
 Cloud Deployment (Render)
+<<<<<<< HEAD
 Future Improvements
 Email Notifications
 WebSocket Notifications
 Asset Inventory Integration
 Frontend Dashboard
 Multi-Tenant Support
+=======
+>>>>>>> de85fbdfea872fc06a3614333965b7f2573cef40
 Author
 Ramon Monteiro
 
